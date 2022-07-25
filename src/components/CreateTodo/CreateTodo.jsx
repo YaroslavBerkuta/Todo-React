@@ -1,21 +1,28 @@
 import React, { useState } from "react";
 
-export const CreateTodo = ({ addTodo }) => {
+export const CreateTodo = ({ setTodos }) => {
   const [todo, setTodo] = useState("");
-  const handelSubmit = (e) => {
-    e.preventDefault();
-    addTodo(todo);
+  const addTodo = (title) => {
+    setTodos((prev) => [
+      {
+        id: new Date(),
+        title,
+        isCompleted: false,
+      },
+      ...prev,
+    ]);
     setTodo("");
   };
   return (
-    <form onSubmit={handelSubmit}>
+    <div className="flex items-center justify-between mb-4 rounded-2xl bg-zinc-800 p-5 w-full">
       <input
         type="text"
         placeholder="Enter the task"
-        className="p-3 w-full rounded-2xl bg-gray-800 mb-5"
+        className="w-full rounded-2xl bg-transparent outline-none"
         value={todo}
+        onKeyPress={(e) => e.key === "Enter" && addTodo(todo)}
         onChange={(e) => setTodo(e.target.value)}
       />
-    </form>
+    </div>
   );
 };

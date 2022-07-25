@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Layout } from "../../components/Layout/Layout";
 import { TodoItem } from "../../components/TodoItem/TodoItem";
 import { CreateTodo } from "../../components/CreateTodo/CreateTodo";
+
 export const Home = () => {
   const [todos, setTodos] = useState([
     { id: 0, title: "Finish the essay", isCompleted: false },
@@ -17,21 +18,12 @@ export const Home = () => {
     setTodos([...todos].filter((t) => t.id !== id));
     console.log(todos);
   };
-  const addTodo = (title) => {
-    setTodos([
-      {
-        id: new Date(),
-        title,
-        isCompleted: false,
-      },
-      ...todos,
-    ]);
-  };
+
   return (
     <Layout>
       <div className="text-white w-4/5 mx-auto">
         <h1 className="text-2xl font-bold text-center mb-8">To do APP</h1>
-        <CreateTodo addTodo={addTodo} />
+        <CreateTodo setTodos={setTodos} />
         {todos.map((todo) => (
           <TodoItem
             key={todo.id}
